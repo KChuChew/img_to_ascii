@@ -1,5 +1,10 @@
 % this function converts an rgb or grayscale image to ascii characters
 % NNNNNNNNIULOU
+% as is now, best input is a binary image, but yolo test for yourself
+% inputs: input_image - image to convert as .png file
+%         output_file -  file to output ASCII representation to
+%
+% outputs: output_img - MATLAB matrix with ASCII chars
 function output_img = ascii(input_image, output_file)
     % read in and grayscale image
     img = imread(input_image);    
@@ -10,9 +15,10 @@ function output_img = ascii(input_image, output_file)
     [row col] = size(img);
     output_img = char(row, col);
     
+    % iterate through all pixels, assign chars per pixel based
+    % on pixel intensty
     for r = 1:row
         for c = 1:col
-           % try 3 intenstiy blocks for now yolo
            if(img(r, c) < 175)
                output_img(r, c) = '!';
            else
@@ -20,6 +26,7 @@ function output_img = ascii(input_image, output_file)
            end
         end
     end
+    % write ASCII chars to file for better viewing
     file = fopen('niulou.txt', 'w+');
     for i = 1:row
         for j = 1:col
